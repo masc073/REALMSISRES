@@ -34,6 +34,7 @@ public class Autenticar extends AppservPasswordLoginModule
             LOGGER.fine("*************");
         } else
         {
+            System.err.println("Deu merda!!");
             throw new LoginException("Invalid login!");
         }
 

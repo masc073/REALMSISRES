@@ -58,7 +58,7 @@ public class Realm_sisres extends AppservRealm
     @Override
     public synchronized String getJAASContext()
     {
-        return "realmGerenciador";
+        return "Realm_sisres";
     }
 
     @Override
@@ -88,7 +88,8 @@ public class Realm_sisres extends AppservRealm
         try
         {
             conn = getConnection();
-            stmt = conn.prepareStatement("Select g.txt_nome from sisres.GRUPO as g, sisres.PESSOA as p, sisres.pessoa_grupo as pg where p.id = pg.id_pessoa and g.id = pg.id_grupo and p.txt_email like ?");
+            System.err.println("Cheguei aqqqqqqqqqqqqui!!");
+            stmt = conn.prepareStatement("Select g.nome from sisres.grupo as g, sisres.responsavel as r, where r.email = ? and r.id = g.id ");
             stmt.setString(1, username);
             rs = stmt.executeQuery();
 
@@ -126,7 +127,7 @@ public class Realm_sisres extends AppservRealm
         try
         {
             conn = getConnection();
-            stmt = conn.prepareStatement("Select p.txt_senha, p.numero_numeroAleatorio from sisres.PESSOA as p where p.txt_email like ?");
+            stmt = conn.prepareStatement("Select r.senhadigital , r.numero_numeroAleatorio from sisres.responsavel as r where r.email like ?");
             stmt.setString(1, _username);
             rs = stmt.executeQuery();
 
@@ -135,7 +136,7 @@ public class Realm_sisres extends AppservRealm
             if (rs.next())
             {
 
-                String senhaAtual = rs.getString("txt_senha"); //senha no banco criptografada
+                String senhaAtual = rs.getString("senhadigital"); //senha no banco criptografada
                 int numeroAleatorio = rs.getInt("numero_numeroAleatorio");
                 String senhaDigitada = encripta.encriptar(_password, numeroAleatorio);
 
