@@ -58,7 +58,7 @@ public class Realm_sisres extends AppservRealm
     @Override
     public synchronized String getJAASContext()
     {
-        return "Realm_sisres";
+        return "Realm_Sisres";
     }
 
     @Override
