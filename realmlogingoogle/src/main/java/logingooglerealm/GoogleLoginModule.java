@@ -29,7 +29,9 @@ public class GoogleLoginModule extends AppservPasswordLoginModule
         System.err.println("SENHAAAA: " + _password);
         if (realm.authenticateUser(_username, _password)) {
             LOGGER.fine("* Grupos: *");
+            
             List<String> groupsList = realm.getGroupList(_username);
+            LOGGER.fine("Quantidade de grupos no banco: " +  groupsList.size());
             String[] groups = new String[groupsList.size()];
             int i = 0;
             for (String group : groupsList) {
@@ -37,6 +39,8 @@ public class GoogleLoginModule extends AppservPasswordLoginModule
                 LOGGER.log(Level.FINE, "{0}:{1}", new Object[]{i, groups[i - 1]});
             }
             commitUserAuthentication(groups);
+            
+            LOGGER.fine("Grupo atual:" + groups[0]);
             LOGGER.fine("*************");
         }
         else {
